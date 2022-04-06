@@ -78,7 +78,7 @@ class Login extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dispatchUser: (payload) => dispatch(fetchUser(payload)),
+  dispatchUser: () => dispatch(fetchUser()),
 });
 
 Login.propTypes = {
