@@ -1,14 +1,21 @@
 export const USER_LOGIN = 'USER_LOGIN';
 export const GET_TOKEN = 'GET_TOKEN';
+export const GET_SCORE = 'GET_SCORE';
 
-export const loginAction = (payload) => ({
+export const loginAction = (name, email) => ({
   type: USER_LOGIN,
-  payload,
+  name,
+  email,
 });
 
-export const getToken = (payload) => ({
+export const getToken = (token) => ({
   type: GET_TOKEN,
-  payload,
+  token,
+});
+
+export const getScore = (score) => ({
+  type: GET_SCORE,
+  score,
 });
 
 export const fetchUser = () => async (dispatch) => {
