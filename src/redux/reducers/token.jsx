@@ -5,7 +5,7 @@ const INITIAL_STATE = {};
 const token = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case GET_TOKEN:
-    return action.payload.token;
+    return action.token.token;
   default:
     return state;
   }
