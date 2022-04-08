@@ -1,10 +1,12 @@
-import { USER_LOGIN, GET_SCORE } from '../action/index';
+import { USER_LOGIN, GET_SCORE, GET_DATA } from '../action/index';
 
 const INITIAL_STATE = {
   email: '',
   name: '',
   score: 0,
+  data: [],
 };
+
 const loginReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case USER_LOGIN:
@@ -17,6 +19,11 @@ const loginReducer = (state = INITIAL_STATE, action) => {
     return {
       ...state,
       score: action.score,
+    };
+  case GET_DATA:
+    return {
+      ...state,
+      data: action.data.results,
     };
   default:
     return state;

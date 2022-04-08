@@ -22,12 +22,24 @@ class Login extends React.Component {
     }
   }
 
-  handleClick = (target) => {
+  // handleClick = (target) => {
+  //   target.preventDefault();
+  //   const { email, playerName } = this.state;
+  //   const { history, dispatchToken, dispatchUser } = this.props;
+  //   const ONE_THOUSAND = 1000;
+  //   dispatchUser(playerName, email);
+  //   dispatchToken();
+  //   setTimeout(() => {
+  //     history.push('/game');
+  //   }, ONE_THOUSAND);
+  // }
+
+  handleClick = async (target) => {
     target.preventDefault();
     const { email, playerName } = this.state;
     const { history, dispatchToken, dispatchUser } = this.props;
-    dispatchUser(playerName, email);
-    dispatchToken();
+    await dispatchUser(playerName, email);
+    await dispatchToken();
     history.push('/game');
   }
 
