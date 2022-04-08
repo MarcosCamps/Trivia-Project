@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../componentes/Header';
 import { fetchApi } from '../redux/action';
+import '../Style/buttonColor.css';
 
 class Game extends React.Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class Game extends React.Component {
     this.state = {
       category: [],
       index: 0,
+      validateColor: false,
     };
   }
 
@@ -22,18 +24,38 @@ class Game extends React.Component {
     });
   }
 
+  handleClick = () => {
+    this.setState({
+      validateColor: true,
+    });
+  };
+
+  handleColor = (color, test2) => {
+    // const { category, index } = this.state;
+    // const test = category[index].correct_answer === color;
+    if (color === test2) {
+      return 'greenBorder';
+    }
+    return 'redBorder';
+  };
+
   buttonAnswer = (answer) => {
+    const { validateColor } = this.state;
+    console.log(validateColor);
     const arrIncorrect = answer.incorrect_answers;
     const arrAnswers = [...arrIncorrect, answer.correct_answer];
+    const correct = answer.correct_answer;
     const NUMBER = 0.5;
     const aleatory = arrAnswers.sort(() => Math.random() - NUMBER);
     console.log(aleatory);
     return aleatory.map((resposta, index) => (
       <button
         key={ resposta }
+        className={ validateColor ? this.handleColor(correct, resposta) : '' }
+        onClick={ () => this.handleClick() }
         type="button"
         data-testid={
-          resposta === answer.correct_answer
+          resposta === correct
             ? 'correct-answer'
             : `wrong-answer-${index}`
         }
