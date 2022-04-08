@@ -16,8 +16,8 @@ class Header extends React.Component {
             src={ `https://www.gravatar.com/avatar/${convertEmail}` }
             alt="Gravatar"
           />
-          <h2 data-testid="header-player-name">{`Name:${name}`}</h2>
-          <span data-testid="header-score">{`Score:${score}`}</span>
+          <h2 data-testid="header-player-name">{`Name: ${name}`}</h2>
+          <span data-testid="header-score">{`Score: ${score}`}</span>
         </div>
       </header>
     );

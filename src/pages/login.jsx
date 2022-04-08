@@ -20,7 +20,7 @@ class Login extends React.Component {
     } else {
       this.setState({ btnPlay: true });
     }
-  }
+  };
 
   // handleClick = (target) => {
   //   target.preventDefault();
@@ -41,19 +41,19 @@ class Login extends React.Component {
     await dispatchUser(playerName, email);
     await dispatchToken();
     history.push('/game');
-  }
+  };
 
   handleChange = ({ target: { id, value } }) => {
     this.setState({ [id]: value }, () => {
       this.validateBtn();
     });
-  }
+  };
 
   handleSettings = (event) => {
     event.preventDefault();
     const { history } = this.props;
     history.push('/settings');
-  }
+  };
 
   render() {
     const { playerName, email, btnPlay } = this.state;

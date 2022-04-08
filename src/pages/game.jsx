@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import Header from '../componentes/Header';
 import { fetchApi } from '../redux/action';
 import '../Style/buttonColor.css';
+import Timer from '../componentes/Timer';
 
 class Game extends React.Component {
   constructor(props) {
@@ -55,9 +56,7 @@ class Game extends React.Component {
         onClick={ () => this.handleClick() }
         type="button"
         data-testid={
-          resposta === correct
-            ? 'correct-answer'
-            : `wrong-answer-${index}`
+          resposta === correct ? 'correct-answer' : `wrong-answer-${index}`
         }
       >
         {resposta}
@@ -69,6 +68,7 @@ class Game extends React.Component {
     const { index, category } = this.state;
     this.setState(() => ({
       index: index === category.length - 1 ? 0 : index + 1,
+      validateColor: false,
     }));
   };
 
@@ -76,26 +76,23 @@ class Game extends React.Component {
     const { index } = this.state;
     const { data } = this.props;
     const category = data;
-    return (
-      !category ? null
-        : (
-          <div>
-            <h1>Tela de Jogo</h1>
-            <Header />
-            <div>
-              <h3 data-testid="question-category">{category[index]?.category}</h3>
-              <p data-testid="question-text">{category[index]?.question}</p>
-              {category.length > 0
-                && (
-                  <div data-testid="answer-options">
-                    {this.buttonAnswer(category[index])}
-                  </div>
-                )}
-              <button type="button" onClick={ this.onClick }>
-                Clica
-              </button>
+    return !category ? null : (
+      <div>
+        <Header />
+        <Timer />
+        <div>
+          <h3 data-testid="question-category">{category[index]?.category}</h3>
+          <p data-testid="question-text">{category[index]?.question}</p>
+          {category.length > 0 && (
+            <div data-testid="answer-options">
+              {this.buttonAnswer(category[index])}
             </div>
-          </div>)
+          )}
+          <button type="button" onClick={ this.onClick }>
+            Next
+          </button>
+        </div>
+      </div>
     );
   }
 }
