@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import HeaderFeedback from './headerFeedback';
+import Header from '../componentes/Header';
 
 class Feedback extends React.Component {
   handleLogin = (event) => {
@@ -18,7 +18,7 @@ class Feedback extends React.Component {
   render() {
     return (
       <section>
-        <HeaderFeedback />
+        <Header />
         <section>
           {/* Requisito13 \/ */}
           <h2 data-testid="feedback-text">Could be better...</h2>
