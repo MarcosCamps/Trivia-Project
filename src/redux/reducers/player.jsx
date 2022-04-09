@@ -7,7 +7,7 @@ const INITIAL_STATE = {
   data: [],
 };
 
-const loginReducer = (state = INITIAL_STATE, action) => {
+const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
   case USER_LOGIN:
     return {
@@ -18,7 +18,7 @@ const loginReducer = (state = INITIAL_STATE, action) => {
   case GET_SCORE:
     return {
       ...state,
-      score: action.score,
+      score: state.score + action.score,
     };
   case GET_DATA:
     return {
@@ -29,4 +29,4 @@ const loginReducer = (state = INITIAL_STATE, action) => {
     return state;
   }
 };
-export default loginReducer;
+export default player;

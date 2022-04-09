@@ -21,7 +21,7 @@ class Timer extends React.Component {
     const { time } = this.props;
     return (
       <div>
-        <span>{`Timer: ${time}`}</span>
+        <span className="timer">{time}</span>
       </div>
     );
   }

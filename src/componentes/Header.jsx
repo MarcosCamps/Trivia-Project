@@ -17,7 +17,7 @@ class Header extends React.Component {
             alt="Gravatar"
           />
           <h2 data-testid="header-player-name">{`Name: ${name}`}</h2>
-          <span data-testid="header-score">{`Score: ${score}`}</span>
+          <span data-testid="header-score">{score}</span>
         </div>
       </header>
     );
@@ -31,8 +31,8 @@ Header.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  email: state.loginReducer.email,
-  name: state.loginReducer.name,
-  score: state.loginReducer.score,
+  email: state.player.email,
+  name: state.player.name,
+  score: state.player.score,
 });
 export default connect(mapStateToProps)(Header);
