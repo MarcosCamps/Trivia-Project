@@ -41,13 +41,13 @@ class Game extends React.Component {
     });
     switch (dificulty) {
     case 'easy':
-      dispatchScore(TEN + (timer * 1));
+      dispatchScore(1, TEN + (timer * 1));
       break;
     case 'medium':
-      dispatchScore(TEN + (timer * 2));
+      dispatchScore(1, TEN + (timer * 2));
       break;
     case 'hard':
-      dispatchScore(TEN + (timer * THREE));
+      dispatchScore(1, TEN + (timer * THREE));
       break;
     default:
       dispatchScore(0);
@@ -147,7 +147,7 @@ Game.propTypes = {
 const mapDispatchToProps = (dispatch) => ({
   fetchQuestions: (token) => dispatch(fetchApi(token)),
   reset: () => dispatch(disabledAndReset()),
-  dispatchScore: (number) => dispatch(getScore(number)),
+  dispatchScore: (assertions, score) => dispatch(getScore(assertions, score)),
 });
 
 const mapStateToProps = (state) => ({

@@ -16,8 +16,9 @@ export const getToken = (token) => ({
   token,
 });
 
-export const getScore = (score) => ({
+export const getScore = (assertions, score) => ({
   type: GET_SCORE,
+  assertions,
   score,
 });
 
