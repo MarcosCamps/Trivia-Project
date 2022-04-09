@@ -1,7 +1,7 @@
 import { GET_TIME, NEXT_BUTTON } from '../action/index';
 
 const INITIAL_STATE = {
-  time: 5,
+  time: 30,
   isDisebledBtnNext: true,
   isDisebledBtnQuestion: false,
 };
