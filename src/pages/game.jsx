@@ -42,6 +42,7 @@ class Game extends React.Component {
 
   buttonAnswer = (answer) => {
     const { validateColor } = this.state;
+    const { isDisebledBtnQuestion } = this.props;
     console.log(validateColor);
     const arrIncorrect = answer.incorrect_answers;
     const arrAnswers = [...arrIncorrect, answer.correct_answer];
@@ -58,6 +59,7 @@ class Game extends React.Component {
         data-testid={
           resposta === correct ? 'correct-answer' : `wrong-answer-${index}`
         }
+        disabled={ isDisebledBtnQuestion }
       >
         {resposta}
       </button>
@@ -74,7 +76,7 @@ class Game extends React.Component {
 
   render() {
     const { index } = this.state;
-    const { data } = this.props;
+    const { data, isDisebledBtnNext } = this.props;
     const category = data;
     return !category ? null : (
       <div>
@@ -88,7 +90,11 @@ class Game extends React.Component {
               {this.buttonAnswer(category[index])}
             </div>
           )}
-          <button type="button" onClick={ this.onClick }>
+          <button
+            type="button"
+            onClick={ this.onClick }
+            disabled={ isDisebledBtnNext }
+          >
             Next
           </button>
         </div>
@@ -101,6 +107,8 @@ Game.propTypes = {
   token: PropTypes.string.isRequired,
   fetchQuestions: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(Object).isRequired,
+  isDisebledBtnNext: PropTypes.bool.isRequired,
+  isDisebledBtnQuestion: PropTypes.bool.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
@@ -110,6 +118,8 @@ const mapDispatchToProps = (dispatch) => ({
 const mapStateToProps = (state) => ({
   token: state.token,
   data: state.loginReducer.data,
+  isDisebledBtnQuestion: state.timer.isDisebledBtnQuestion,
+  isDisebledBtnNext: state.timer.isDisebledBtnNext,
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Game);
