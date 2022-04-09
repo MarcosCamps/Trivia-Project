@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from '../componentes/Header';
-import { fetchApi } from '../redux/action';
+import { fetchApi, disabledAndReset, getScore } from '../redux/action';
 import '../Style/buttonColor.css';
 import Timer from '../componentes/Timer';
 
@@ -10,30 +10,52 @@ class Game extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: [],
       index: 0,
       validateColor: false,
+      nextButton: false,
     };
   }
 
   componentDidMount() {
     const { token, fetchQuestions } = this.props;
     fetchQuestions(token);
-    const { data } = this.props;
-    this.setState({
-      category: data,
-    });
   }
 
   handleClick = () => {
     this.setState({
       validateColor: true,
+      nextButton: true,
     });
   };
 
+  pointsCalc = () => {
+    const { data, dispatchScore } = this.props;
+    const { index } = this.state;
+    const dificulty = data[index].difficulty;
+    const timer = document.querySelector('.timer').innerHTML;
+    const THREE = 3;
+    const TEN = 10;
+    this.setState({
+      validateColor: true,
+      nextButton: true,
+    });
+    switch (dificulty) {
+    case 'easy':
+      dispatchScore(TEN + (timer * 1));
+      break;
+    case 'medium':
+      dispatchScore(TEN + (timer * 2));
+      break;
+    case 'hard':
+      dispatchScore(TEN + (timer * THREE));
+      break;
+    default:
+      dispatchScore(0);
+      break;
+    }
+  }
+
   handleColor = (color, test2) => {
-    // const { category, index } = this.state;
-    // const test = category[index].correct_answer === color;
     if (color === test2) {
       return 'greenBorder';
     }
@@ -43,18 +65,16 @@ class Game extends React.Component {
   buttonAnswer = (answer) => {
     const { validateColor } = this.state;
     const { isDisebledBtnQuestion } = this.props;
-    console.log(validateColor);
     const arrIncorrect = answer.incorrect_answers;
     const arrAnswers = [...arrIncorrect, answer.correct_answer];
     const correct = answer.correct_answer;
     const NUMBER = 0.5;
     const aleatory = arrAnswers.sort(() => Math.random() - NUMBER);
-    console.log(aleatory);
     return aleatory.map((resposta, index) => (
       <button
         key={ resposta }
         className={ validateColor ? this.handleColor(correct, resposta) : '' }
-        onClick={ () => this.handleClick() }
+        onClick={ resposta === correct ? this.pointsCalc : this.handleClick }
         type="button"
         data-testid={
           resposta === correct ? 'correct-answer' : `wrong-answer-${index}`
@@ -67,16 +87,21 @@ class Game extends React.Component {
   };
 
   onClick = () => {
-    const { index, category } = this.state;
-    this.setState(() => ({
-      index: index === category.length - 1 ? 0 : index + 1,
+    const { history, reset } = this.props;
+    const { index } = this.state;
+    const FOUR = 4;
+    if (index === FOUR) return history.push('/feedback');
+    this.setState((prev) => ({
+      index: prev.index + 1,
       validateColor: false,
+      nextButton: false,
     }));
+    reset();
   };
 
   render() {
-    const { index } = this.state;
-    const { data, isDisebledBtnNext } = this.props;
+    const { index, nextButton } = this.state;
+    const { data, isDisebledBtnQuestion } = this.props;
     const category = data;
     return !category ? null : (
       <div>
@@ -90,13 +115,17 @@ class Game extends React.Component {
               {this.buttonAnswer(category[index])}
             </div>
           )}
-          <button
-            type="button"
-            onClick={ this.onClick }
-            disabled={ isDisebledBtnNext }
-          >
-            Next
-          </button>
+          {nextButton || isDisebledBtnQuestion
+            ? (
+              <button
+                data-testid="btn-next"
+                type="button"
+                onClick={ this.onClick }
+              >
+                Next
+              </button>
+            )
+            : null}
         </div>
       </div>
     );
@@ -107,17 +136,23 @@ Game.propTypes = {
   token: PropTypes.string.isRequired,
   fetchQuestions: PropTypes.func.isRequired,
   data: PropTypes.arrayOf(Object).isRequired,
-  isDisebledBtnNext: PropTypes.bool.isRequired,
   isDisebledBtnQuestion: PropTypes.bool.isRequired,
+  reset: PropTypes.func.isRequired,
+  dispatchScore: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
   fetchQuestions: (token) => dispatch(fetchApi(token)),
+  reset: () => dispatch(disabledAndReset()),
+  dispatchScore: (number) => dispatch(getScore(number)),
 });
 
 const mapStateToProps = (state) => ({
   token: state.token,
-  data: state.loginReducer.data,
+  data: state.player.data,
   isDisebledBtnQuestion: state.timer.isDisebledBtnQuestion,
   isDisebledBtnNext: state.timer.isDisebledBtnNext,
 });

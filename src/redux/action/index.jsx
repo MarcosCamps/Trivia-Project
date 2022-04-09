@@ -16,9 +16,9 @@ export const getToken = (token) => ({
   token,
 });
 
-export const getScore = (value) => ({
+export const getScore = (score) => ({
   type: GET_SCORE,
-  data: value,
+  score,
 });
 
 export const getData = (value) => ({
@@ -31,9 +31,8 @@ export const timerAction = (value) => ({
   data: value,
 });
 
-export const disabledAndReset = (value) => ({
+export const disabledAndReset = () => ({
   type: NEXT_BUTTON,
-  data: value,
 });
 
 export const fetchUser = () => async (dispatch) => {
