@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import '../Style/Login.css';
 import Header from '../componentes/Header';
 import { fetchApi, disabledAndReset, getScore } from '../redux/action';
 import '../Style/buttonColor.css';
@@ -73,7 +74,9 @@ class Game extends React.Component {
     return aleatory.map((resposta, index) => (
       <button
         key={ resposta }
-        className={ validateColor ? this.handleColor(correct, resposta) : '' }
+        className={ `${validateColor
+          ? this.handleColor(correct, resposta)
+          : ''} buttonInputAnswer ` }
         onClick={ resposta === correct ? this.pointsCalc : this.handleClick }
         type="button"
         data-testid={
@@ -118,6 +121,7 @@ class Game extends React.Component {
           {nextButton || isDisebledBtnQuestion
             ? (
               <button
+                className="buttonInput"
                 data-testid="btn-next"
                 type="button"
                 onClick={ this.onClick }
