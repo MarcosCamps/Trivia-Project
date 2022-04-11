@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import '../Style/Login.css';
 import Header from '../componentes/Header';
 
 class Feedback extends React.Component {
@@ -31,10 +32,20 @@ class Feedback extends React.Component {
           <h3 data-testid="feedback-total-score">{score}</h3>
           <h3 data-testid="feedback-total-question">{assertions}</h3>
         </section>
-        <button data-testid="btn-play-again" type="button" onClick={ this.handleLogin }>
+        <button
+          className="buttonInput"
+          data-testid="btn-play-again"
+          type="button"
+          onClick={ this.handleLogin }
+        >
           Play Again
         </button>
-        <button data-testid="btn-ranking" type="button" onClick={ this.handleRanking }>
+        <button
+          className="buttonInput"
+          data-testid="btn-ranking"
+          type="button"
+          onClick={ this.handleRanking }
+        >
           Ranking
         </button>
       </section>

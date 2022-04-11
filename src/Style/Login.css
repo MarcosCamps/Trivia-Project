@@ -1,0 +1,23 @@
+.LoginName {
+	width: 100%;
+  padding: 12px 20px;
+  margin: 8px;
+  display: flex;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+
+}
+
+.emailStyle {
+	margin-bottom: 20px
+}
+
+.buttonInput {
+	width: 40%;
+	padding: 10px;
+	margin: 10px;
+	border: 1px solid #ccc;
+  border-radius: 4px;
+	cursor: pointer;
+}

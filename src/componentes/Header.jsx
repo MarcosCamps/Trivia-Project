@@ -17,6 +17,7 @@ class Header extends React.Component {
             alt="Gravatar"
           />
           <h2 data-testid="header-player-name">{name}</h2>
+          <span>Score: </span>
           <span data-testid="header-score">{score}</span>
         </div>
       </header>

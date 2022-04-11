@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import '../Style/Login.css';
 import { connect } from 'react-redux';
 import { fetchUser, loginAction } from '../redux/action';
 
@@ -59,9 +60,13 @@ class Login extends React.Component {
     const { playerName, email, btnPlay } = this.state;
     return (
       <section>
-        <label htmlFor="playerName">
-          Player name:
+        <label
+          htmlFor="playerName"
+          className="emailStyle"
+        >
+          Player name
           <input
+            className="LoginName emailStyle"
             type="text"
             data-testid="input-player-name"
             id="playerName"
@@ -71,9 +76,10 @@ class Login extends React.Component {
           />
         </label>
 
-        <label htmlFor="email">
-          Email:
+        <label htmlFor="email" className="emailStyle">
+          Email
           <input
+            className="LoginName"
             type="email"
             data-testid="input-gravatar-email"
             id="email"
@@ -85,6 +91,7 @@ class Login extends React.Component {
 
         <button
           type="submit"
+          className="buttonInput"
           data-testid="btn-play"
           id="btnPlay"
           disabled={ btnPlay }
@@ -95,6 +102,7 @@ class Login extends React.Component {
 
         <button
           type="button"
+          className="buttonInput"
           data-testid="btn-settings"
           onClick={ this.handleSettings }
         >

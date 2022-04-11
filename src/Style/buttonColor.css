@@ -5,3 +5,11 @@
 .redBorder {
   border: 3px solid red;
 }
+
+.buttonInputAnswer {
+	width: 20%;
+	padding: 10px;
+	margin: 10px;
+  border-radius: 4px;
+	cursor: pointer;
+}
